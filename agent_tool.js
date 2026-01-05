@@ -15,6 +15,12 @@ const weatherLocationTool = tool({
     }
 });
 
+const outputSchema = z.object({
+    city: z.string().describe("The city to get the weather for"),
+    degree_C: z.number().describe("The temperature in Celsius"),
+    condition: z.string().describe("The weather condition description")
+})
+
 const sendEmailTool = tool({
     name: "send_email",
     description: "Send an email to a specified recipient.",
@@ -32,7 +38,8 @@ const sendEmailTool = tool({
 const agent = new Agent({
     name: "Weather Assistant",
     instructions: "You are an expert on global weather patterns. Provide accurate and detailed weather forecasts based on the user's location.",
-    tools: [weatherLocationTool, sendEmailTool]
+    tools: [weatherLocationTool, sendEmailTool],
+    outputType: outputSchema
 })
 
 async function main(query = ''){
