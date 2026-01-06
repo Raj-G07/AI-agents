@@ -1,4 +1,4 @@
-import {Agent,tool} from "@openai/agents";
+import {Agent,tool,run} from "@openai/agents";
 import { z } from "zod";
 
 const refundPolicyTool = tool({
@@ -15,7 +15,7 @@ const refundPolicyTool = tool({
   },
 });
 
-export const agent = new Agent({
+export const refundAgent = new Agent({
   name: "Customer Support Agent",
   instructions: function(){
     if(location == "India"){
@@ -57,3 +57,13 @@ export const planAgent = new Agent({
     },
     tools: [availablePlansTool],
   });   
+
+async function main(query = ''){
+    const result = await run(
+        refundAgent,
+        query
+    );
+    console.log(result.finalOutput);
+}
+
+main("What is the refund policy and available subscription plans?");
