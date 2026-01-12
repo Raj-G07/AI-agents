@@ -1,0 +1,9 @@
+Hosted MCP server tools
+
+LLM (gpt-4.2)
+
+Agent(LLM(gpt-4.2) , HostedMCPServer('github'))
+
+run(agent,q);
+
+[Client] -> q --> OpenAi Server (gpt-4.2) --> MCP Tool --> Response from MCP --> OpenAI Server --> [Client]
